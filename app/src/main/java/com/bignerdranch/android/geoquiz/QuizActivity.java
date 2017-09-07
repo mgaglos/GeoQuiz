@@ -12,6 +12,7 @@ import android.widget.Toast;
 public class QuizActivity extends AppCompatActivity {
     private static final String TAG = "QuizActivity";
     private static final String KEY_INDEX = "index";
+    private static final int REQUEST_CODE_CHEAT = 0;
 
     private Button mTrueButton;
     private Button mFalseButton;
@@ -40,6 +41,7 @@ public class QuizActivity extends AppCompatActivity {
         }
         mQuestionTextView = (TextView) findViewById(R.id.question_text_view);
         updateQuestion();
+
         mTrueButton = (Button) findViewById(R.id.true_button);
         mTrueButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -47,6 +49,7 @@ public class QuizActivity extends AppCompatActivity {
                 checkAnswer(true);
             }
         });
+
         mFalseButton = (Button) findViewById(R.id.false_button);
         mFalseButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,6 +57,7 @@ public class QuizActivity extends AppCompatActivity {
                 checkAnswer(false);
             }
         });
+
         mNextButton = (Button) findViewById(R.id.next_button);
         mNextButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,7 +73,7 @@ public class QuizActivity extends AppCompatActivity {
             public void onClick(View v) {
                 boolean answerIsTrue = mQuestionBank[mCurrentIndex].isAnswerTrue();
                 Intent intent = CheatActivity.newIntent(QuizActivity.this, answerIsTrue);
-                startActivity(intent);
+                startActivityForResult(intent, REQUEST_CODE_CHEAT);
             }
         });
     }
